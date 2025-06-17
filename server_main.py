@@ -1,8 +1,10 @@
 import os
-from flask import Flask, request, jsonify
-import whisper
-import tempfile
 import logging
+import tempfile
+from flask import Flask, request, jsonify
+
+import whisper
+
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -13,15 +15,15 @@ app = Flask(__name__)
 # You can change 'base' to 'small', 'medium', 'large', etc., depending on your needs and system resources.
 try:
     logging.info('Loading OpenAI Whisper model. This may take a moment...')
-    # model = whisper.load_model('turbo')
-    model = whisper.load_model('large')
+    model = whisper.load_model('turbo')
+    # model = whisper.load_model('large')
     logging.info('Whisper model loaded successfully.')
 except Exception as e:
     logging.error(f'Error loading Whisper model: {e}')
-    model = None  # Set model to None if loading fails
+    model = None
 
 
-@app.route('/transcribe', methods=['POST'])
+@app.route(rule='/transcribe', methods=['POST'])
 def transcribe_audio():
     """
     Receives an audio file, transcribes it using OpenAI Whisper,
