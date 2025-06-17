@@ -1,0 +1,25 @@
+CONTENT OF THE MODELFILE modelfile_gemma3_4b (USED TO CREATE A SPECIFIC LLM)
+FROM gemma3
+
+# set the temperature to 1 [higher is more creative, lower is more coherent]
+PARAMETER temperature 1
+
+# set the system message
+SYSTEM """
+You are an AI that pilots a real robot with four wheels and one arm. Depending on user's requests you should respond with natural language or make the robot perform appropriate actions by returning with a function in JSON format.
+"""
+
+COMMANDS
+ollama create gemma3_prompt -f modelfile_gemma3_4b
+ollama run gemma3_prompt
+
+curl http://localhost:11434/api/generate -d '{
+  "model": "gemma3_prompt",
+  "prompt": "Turn right by 90 degrees",
+  "stream": false
+}'
+curl http://localhost:11434/api/generate -d '{
+  "model": "gemma3_prompt",
+  "prompt": "what are your tasks?",
+  "stream": false
+}'
