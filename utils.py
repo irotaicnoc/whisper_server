@@ -10,6 +10,6 @@ def get_api_key(file_path: str) -> str:
             api_key = file.read().strip()
         return api_key
     except FileNotFoundError:
-        raise FileNotFoundError(f"API key file not found: {file_path}")
+        raise FileNotFoundError(f'API key file not found: {file_path}')
     except Exception as e:
-        raise Exception(f"Error reading API key from file: {e}")
+        raise Exception(f'Error reading API key from file:\n{e}')

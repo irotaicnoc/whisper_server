@@ -7,7 +7,7 @@ import global_constants as gc
 
 # Set up the wave file to save the output:
 def wave_file(filename, pcm, channels=1, rate=24000, sample_width=2):
-    with wave.open(filename, mode="wb") as wf:
+    with wave.open(filename, mode='wb') as wf:
         wf.setnchannels(channels)
         wf.setsampwidth(sample_width)
         wf.setframerate(rate)
@@ -16,7 +16,7 @@ def wave_file(filename, pcm, channels=1, rate=24000, sample_width=2):
 
 def text_to_speech(text_input: str,
                    client: genai.Client,
-                   model_name: str = "gemini-2.5-flash-preview-tts",
+                   model_name: str = 'gemini-2.5-flash-preview-tts',
                    voice_name: str = 'Kore',
                    save_file: bool = False
                    ):
@@ -28,7 +28,7 @@ def text_to_speech(text_input: str,
         model=model_name,
         contents=text_input,
         config=types.GenerateContentConfig(
-            response_modalities=["AUDIO"],
+            response_modalities=['AUDIO'],
             speech_config=types.SpeechConfig(
                 voice_config=types.VoiceConfig(
                     prebuilt_voice_config=types.PrebuiltVoiceConfig(
@@ -42,7 +42,7 @@ def text_to_speech(text_input: str,
 
     if save_file:
         # Use first 10 characters of text as filename
-        file_name = f'data/{text_input[:10].replace(" ", "_")}.wav'
-        file_path = gd.DATA_FOLDER_PATH + file_name
-        print(f'Saving audio to {file_name}')
-        wave_file(file_name, data)  # Saves the file
+        file_name = f'{gc.DATA_FOLDER_PATH}{text_input[:10].replace(" ", "_")}.wav'
+        file_path = gc.DATA_FOLDER_PATH + file_name
+        print(f'Saving audio to {file_path}')
+        wave_file(file_path, data)  # Saves the file
