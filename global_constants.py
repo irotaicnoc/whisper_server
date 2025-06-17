@@ -1,0 +1,2 @@
+DATA_FOLDER_PATH = 'data/'
+OUTPUT_FOLDER_PATH = 'output/'
